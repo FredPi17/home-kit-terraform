@@ -1,0 +1,40 @@
+[global]
+  sendAnonymousUsage = false
+
+[log]
+  level = "INFO"
+  format = "common"
+
+[providers]
+  [providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+    watch = true
+    exposedByDefault = true
+    swarmMode = false
+    useBindPortIP = true
+
+[api]
+  dashboard = true
+  debug = false
+  insecure = true
+
+[entryPoints]
+  [entryPoints.insecure]
+    address = ":80"
+  [entryPoints.secure]
+    address = ":443"
+
+[acme]
+  email = "fpinaud17@gmail.com"
+  storage = "acme.json"
+  caServer = "https://acme-v02.api.letsencrypt.org/directory"
+  entryPoint = "https"
+  keyType = "EC256"
+  [acme.httpChallenge]
+    entryPoint = "http"
+  [acme.dnsChallenge]
+    provider = "dnsimple"
+    delayBeforeCheck = 0
+[[acme.domains]]
+  main = "*.localhost.fr"
+  sans = ["localhost.fr"]
