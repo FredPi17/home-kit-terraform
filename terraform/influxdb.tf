@@ -32,6 +32,9 @@ resource "influxdbv2_bucket" "network" {
     depends_on =  [influxdbv2-onboarding_setup.setup]
     name = "network"
     org_id = influxdbv2-onboarding_setup.setup.org_id
+    retention_rules {
+        every_seconds = 3600
+    }
 }
 
 resource "influxdbv2_authorization" "network" {
